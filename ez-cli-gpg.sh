@@ -1,19 +1,21 @@
 #!/bin/bash
+
+# Easy Command Line GPG
+# ez-cli-gpg.sh
+# Version 2.1 (released 2010.03.15)
+
+# Contact
 # Steve Phillips / fraktil
 # Email: fraktil@gmail.com
 # Twitter: @fraktil
-# 2010.03.15
 
-# Easy Command Line GPG
-# Version 2.0
-
-if [ -z $1 ]; then
-    echo Usage: `basename $0` recipient
+if [ $# -lt 1 ]; then
+    echo Usage: `basename $0` [Recipient]
     exit 0
 fi
 
-# Recipient specified via command line
-# Is often a (partial) name or (partial) email address
+# Recipient often a (partial) name or (partial) email address
+# E.g., fraktil
 recip=$1
 
 # Where to store encrypted and unencrypted email
