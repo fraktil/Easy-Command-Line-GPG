@@ -2,12 +2,13 @@
 
 # Easy Command Line GPG
 # ez-cli-gpg.sh
-# Version 2.1 (released 2010.03.15)
+# Version 2.2 (released 2010.03.15)
 
-# Contact
-# Steve Phillips / fraktil
-# Email: fraktil@gmail.com
-# Twitter: @fraktil
+# Contact Information
+# -------------------
+# Author:  Steve Phillips / fraktil
+# Email:   fraktil@gmail.com
+# Twitter: twitter.com/fraktil
 
 if [ $# -lt 1 ]; then
     echo Usage: `basename $0` [Recipient]
@@ -21,7 +22,8 @@ recip=$1
 # Where to store encrypted and unencrypted email
 # Use absolute path; ~ not interpreted as /home/username
 # Directory must exist
-maildir=$HOME/email
+maildir=$HOME
+#maildir=$HOME/email
 
 # Date format (used to name file)
 # year, month, day, hour, minute
@@ -33,8 +35,9 @@ date=`date +%Y%m%d%H%M`
 filename=$recip-to-$date.txt
 
 # Text editor used to compose email
-editor='emacsclient -t'
+editor='nano'
 #editor=$EDITOR # use system default stored in $EDITOR
+#editor='emacsclient -t'
 #editor='emacs -nw'
 #editor='vi'
 
@@ -43,8 +46,9 @@ $editor $maildir/$filename
 
 # Encrypt email (will be prompted for GPG passphrase)
 # -a = armor ; -r = recipient ; -s = sign ; -e = encrypt
-gpg -ar $recip -se $maildir/$filename
-#gpg -ar $recip -e $maildir/$filename # Don't sign email, only encrypt
+gpg -ar $recip -se $maildir/$filename # sign and encrypt
+#gpg -ar $recip -s $maildir/$filename  # sign only
+#gpg -ar $recip -e $maildir/$filename  # encrypt only
 
 # Display GPG-encrypted email (e.g., to be pasted into mail client)
 echo
